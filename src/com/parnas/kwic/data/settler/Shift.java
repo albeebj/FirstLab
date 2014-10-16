@@ -22,7 +22,7 @@ public class Shift {
 		}
 		
 		FileOutput fop = new FileOutput();
-		System.out.println(stringToWrite);
+		System.out.print(stringToWrite);
 		fop.wirteDataToFile(stringToWrite);
 		
 		for(int i = 0; i<length-1; i++){
@@ -33,8 +33,8 @@ public class Shift {
 				stringToWrite += parsedString[j] + " ";
 			}
 			parsedString[length-1] = tmp;
-			stringToWrite += parsedString[i] + "\n";
-			System.out.println(stringToWrite);
+			stringToWrite += parsedString[length-1] + "\n";
+			System.out.print(stringToWrite);
 			fop.wirteDataToFile(stringToWrite);
 		}
 	}

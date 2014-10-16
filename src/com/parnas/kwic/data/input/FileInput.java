@@ -25,7 +25,6 @@ public class FileInput {
 		
 	}
 	
-	@SuppressWarnings("resource")
 	public boolean getFileLineByPath(){
 		
 		String temp=null;
