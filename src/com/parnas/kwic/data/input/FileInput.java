@@ -5,13 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
-import com.parnas.kwic.data.settler.StringParser;
+import com.parnas.kwic.data.interfaces.InputInterface;
 
-public class FileInput {
+public class FileInput implements InputInterface{
 	
 	private String path;
-	private StringParser parse;
+	private BufferedReader br;
 	
 	public String getPath() {
 		return path;
@@ -21,36 +22,63 @@ public class FileInput {
 		this.path = path;
 	}
 
-	public FileInput(){
-		
+	public FileInput(String path) throws IOException{
+		File file=new File(path);
+        if(!file.exists()||file.isDirectory())
+            throw new FileNotFoundException();
+        
+        br = new BufferedReader(new FileReader(file));
 	}
 	
-	public boolean getFileLineByPath(){
+
+	@Override
+	public String getLine() {
 		
 		String temp=null;
-		parse = new StringParser();
 		
 		try{
-			File file=new File(path);
-	        if(!file.exists()||file.isDirectory())
-	            throw new FileNotFoundException();
 	        
-	        BufferedReader br=new BufferedReader(new FileReader(file));
-	        
-	        temp=br.readLine();
+	        temp = br.readLine();
 	        
 	        //if temp not bull and not equals to "\n"
-	        while(temp!=null && !temp.equals("\n")){
-	        	parse.parseString(temp);
-	            temp=br.readLine();
+	        if(temp!=null && !temp.equals(""))
+	            return temp;
+	        else if(temp == null){
+	       		br.close();
+	       		return "";
 	        }
-	        br.close();
-	        return true;
+	       	
 		}
 		catch(IOException e){
 			e.printStackTrace();
-			return false;
+			return "Faild";
 		}
+		return "";
+	}
+
+	@Override
+	public ArrayList<String> getWholeFile(String path) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings({ "unchecked", "rawtypes" })
+		ArrayList<String> shiftedStrings = new ArrayList();
+		String temp=null;
+		
+		try{
+	        
+	        temp = br.readLine();
+	        //if temp not bull and not equals to "\n"
+	        while(temp!=null && !temp.equals("")){
+	        	shiftedStrings.add(temp);
+	        	temp = br.readLine();
+	        }
+	        
+	        return shiftedStrings;
+	       	
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return shiftedStrings;
 	}
 	
 }

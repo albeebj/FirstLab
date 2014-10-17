@@ -1,15 +1,20 @@
 package com.parnas.kwic.data.settler;
 
-public class StringParser {
+import com.parnas.kwic.data.interfaces.ParserInterface;
+
+public class StringParser implements ParserInterface {
 
 	public StringParser(){
 		
 	}
-	
-	public void parseString(String stringToParse){
+
+	@Override
+	public String[] parseString(String stringToParse) {
+		// TODO Auto-generated method stub
 		String[] parsedString;
 		parsedString = stringToParse.split(" ");
-		Shift shift = new Shift();
-		shift.shiftParsedString(parsedString);
+		return parsedString;
 	}
+
+
 }

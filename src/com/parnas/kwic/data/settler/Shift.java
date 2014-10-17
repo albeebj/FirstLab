@@ -1,14 +1,15 @@
 package com.parnas.kwic.data.settler;
 
-import com.parnas.kwic.data.output.FileOutput;
+import com.parnas.kwic.data.interfaces.ShiftInterface;
 
-public class Shift {
+public class Shift implements ShiftInterface{
 
 	public Shift(){
 		
 	}
 	
-	public void shiftParsedString(String[] parsedString){
+	@Override
+	public String shiftParsedStringFromRightToLeft(String[] parsedString){
 		
 		String tmp;
 		String stringToWrite = "";
@@ -21,12 +22,9 @@ public class Shift {
 				stringToWrite += parsedString[i] + " ";
 		}
 		
-		FileOutput fop = new FileOutput();
-		System.out.print(stringToWrite);
-		fop.wirteDataToFile(stringToWrite);
+		
 		
 		for(int i = 0; i<length-1; i++){
-			stringToWrite = "";
 			tmp = parsedString[0];
 			for(int j = 0; j<length-1; j++){
 				parsedString[j] = parsedString[j+1];
@@ -34,8 +32,8 @@ public class Shift {
 			}
 			parsedString[length-1] = tmp;
 			stringToWrite += parsedString[length-1] + "\n";
-			System.out.print(stringToWrite);
-			fop.wirteDataToFile(stringToWrite);
 		}
+		
+		return stringToWrite;
 	}
 }

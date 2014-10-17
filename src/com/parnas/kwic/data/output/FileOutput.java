@@ -3,23 +3,22 @@ package com.parnas.kwic.data.output;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileOutput {
+import com.parnas.kwic.data.interfaces.OutputInterface;
+
+public class FileOutput implements OutputInterface{
 
 	private FileWriter writer;
 	private String path = "files/test.txt";
-	
-	public String getPath() {
-		return path;
-	}
 
-	public void setPath(String path) {
+	public FileOutput(String path){
 		this.path = path;
 	}
-
-	public FileOutput(){
-		
-	}
 	
+	public FileOutput() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
 	public void wirteDataToFile(String content){
 		try{
 			writer = new FileWriter(path, true);  
