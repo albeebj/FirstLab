@@ -57,7 +57,7 @@ public class FileInput implements InputInterface{
 	}
 
 	@Override
-	public ArrayList<String> getWholeFile(String path) {
+	public ArrayList<String> getWholeFile() {
 		// TODO Auto-generated method stub
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		ArrayList<String> shiftedStrings = new ArrayList();
@@ -71,7 +71,7 @@ public class FileInput implements InputInterface{
 	        	shiftedStrings.add(temp);
 	        	temp = br.readLine();
 	        }
-	        
+	        br.close();
 	        return shiftedStrings;
 	       	
 		}

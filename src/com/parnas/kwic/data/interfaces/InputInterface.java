@@ -13,5 +13,5 @@ public interface InputInterface {
 	
 	public String getLine();
 	
-	public ArrayList<String> getWholeFile(String path);
+	public ArrayList<String> getWholeFile();
 }
