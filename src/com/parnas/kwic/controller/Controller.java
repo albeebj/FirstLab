@@ -1,7 +1,9 @@
 package com.parnas.kwic.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import com.parnas.kwic.constants.ConstantsUtil;
 import com.parnas.kwic.data.input.FileInput;
@@ -25,21 +27,25 @@ public class Controller {
 	private ShiftInterface si;
 	private OutputInterface oi;
 	private SortInterface soi;
+	
+	public Controller(int choice){
+		
+	}
 
 	public Controller() {
 		init();
 	}
 
-	public Controller(String inFile) {
-		inputFilePath = inFile;
-		init();
-	}
-
-	public Controller(String inFile, String outFile) {
-		inputFilePath = inFile;
-		outputFilePath = outFile;
-		init();
-	}
+//	public Controller(String inFile) {
+//		inputFilePath = inFile;
+//		init();
+//	}
+//
+//	public Controller(String inFile, String outFile) {
+//		inputFilePath = inFile;
+//		outputFilePath = outFile;
+//		init();
+//	}
 
 	/**
 	 * 删除文件
@@ -110,17 +116,32 @@ public class Controller {
 	/**
 	 * 程序入口
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		Controller controller;
-		// 多参数支持，参数一为文件输入，参数二为文件输出
-		if (args.length == 0)
-			controller = new Controller();
-		else if (args.length == 1)
-			controller = new Controller(args[0]);
-		else 
-			controller = new Controller(args[0], args[1]);
+		int choice = 0;
+		Controller controller = new Controller();
+		System.out.println("Choose your input: 1)file 2)socket");
+		System.out.print(">");
+		choice = System.in.read();
+		if (choice == 1) {
+			System.out.println("Your input file path(return for a default file)");
+			System.out.print(">");
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			String inPath = br.readLine();
+			//没有做安全性检测
+			if (inPath == null || inPath == "") {
+				System.out.println("Using default files. ./file/input.txt for input; ./file/temp.txt for shifted result; ./file/output.txt for sorted result.");
+			} else {
+				
+			}
+		} else if (choice == 2) {
+			
+		} else {
+			System.out.println("Bad choice. Abort.");
+			System.exit(-1);
+		}
 		controller.execute();
 	}
 
