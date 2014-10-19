@@ -31,6 +31,10 @@ public class FileInput implements InputInterface{
 	}
 	
 
+	/**
+	 * 从文件中读取一行
+	 * @see com.parnas.kwic.data.interfaces.InputInterface#getLine()
+	 */
 	@Override
 	public String getLine() {
 		
@@ -56,6 +60,10 @@ public class FileInput implements InputInterface{
 		return "";
 	}
 
+	/**
+	 * 读取整个文件
+	 * @see com.parnas.kwic.data.interfaces.InputInterface#getWholeFile()
+	 */
 	@Override
 	public ArrayList<String> getWholeFile() {
 		// TODO Auto-generated method stub

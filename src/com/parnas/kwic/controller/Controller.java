@@ -113,9 +113,14 @@ public class Controller {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		// 未完成：添加对参数的支持
-		Controller controller = new Controller();
+		Controller controller;
+		// 多参数支持，参数一为文件输入，参数二为文件输出
+		if (args.length == 0)
+			controller = new Controller();
+		else if (args.length == 1)
+			controller = new Controller(args[0]);
+		else 
+			controller = new Controller(args[0], args[1]);
 		controller.execute();
 	}
 

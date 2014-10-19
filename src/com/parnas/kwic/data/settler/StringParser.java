@@ -8,6 +8,10 @@ public class StringParser implements ParserInterface {
 		
 	}
 
+	/**
+	 * 对句子进行分词
+	 * @see com.parnas.kwic.data.interfaces.ParserInterface#parseString(java.lang.String)
+	 */
 	@Override
 	public String[] parseString(String stringToParse) {
 		// TODO Auto-generated method stub
