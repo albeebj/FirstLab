@@ -1,5 +1,6 @@
 package com.parnas.kwic.data.settler;
 
+import com.parnas.kwic.constants.ConstantsUtil;
 import com.parnas.kwic.data.interfaces.ShiftInterface;
 
 public class Shift implements ShiftInterface{
@@ -8,6 +9,10 @@ public class Shift implements ShiftInterface{
 		
 	}
 	
+	/**
+	 * 以字为单位进行循环移位 
+	 * @see com.parnas.kwic.data.interfaces.ShiftInterface#shiftParsedStringFromRightToLeft(java.lang.String[])
+	 */
 	@Override
 	public String shiftParsedStringFromRightToLeft(String[] parsedString){
 		
@@ -17,7 +22,7 @@ public class Shift implements ShiftInterface{
 		
 		for(int i = 0; i<length; i++){
 			if(i == length -1)
-				stringToWrite += parsedString[i] + "\n";
+				stringToWrite += parsedString[i] + ConstantsUtil.getCR();
 			else
 				stringToWrite += parsedString[i] + " ";
 		}
@@ -31,7 +36,7 @@ public class Shift implements ShiftInterface{
 				stringToWrite += parsedString[j] + " ";
 			}
 			parsedString[length-1] = tmp;
-			stringToWrite += parsedString[length-1] + "\n";
+			stringToWrite += parsedString[length-1] + ConstantsUtil.getCR();
 		}
 		
 		return stringToWrite;

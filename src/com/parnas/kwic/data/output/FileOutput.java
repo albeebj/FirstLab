@@ -18,6 +18,10 @@ public class FileOutput implements OutputInterface{
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 将处理过的字符串写入文件
+	 * @see com.parnas.kwic.data.interfaces.OutputInterface#wirteDataToFile(java.lang.String)
+	 */
 	@Override
 	public void wirteDataToFile(String content){
 		try{

@@ -1,7 +1,9 @@
 package com.parnas.kwic.controller;
 
+import java.io.File;
 import java.io.IOException;
 
+import com.parnas.kwic.constants.ConstantsUtil;
 import com.parnas.kwic.data.input.FileInput;
 import com.parnas.kwic.data.interfaces.InputInterface;
 import com.parnas.kwic.data.interfaces.OutputInterface;
@@ -17,35 +19,58 @@ public class Controller {
 	private String inputFilePath;
 	private String outputFilePath;
 	private String tempFilePath;
-	
+
 	private InputInterface ii;
 	private ParserInterface pi;
 	private ShiftInterface si;
 	private OutputInterface oi;
 	private SortInterface soi;
-	
-	public Controller(){
+
+	public Controller() {
 		init();
 	}
-	
-	public Controller(String inFile){
+
+	public Controller(String inFile) {
 		inputFilePath = inFile;
 		init();
 	}
-	
-	public Controller(String inFile, String outFile){
+
+	public Controller(String inFile, String outFile) {
 		inputFilePath = inFile;
 		outputFilePath = outFile;
 		init();
 	}
+
+	/**
+	 * 删除文件
+	 * @param sPath
+	 */
+	public void deleteFile(String sPath) {
+		File file = new File(sPath);
+		// 路径为文件且不为空则进行删除
+		if (file.isFile() && file.exists()) {
+			file.delete();
+		}
+	}
+
 	
-	private void init(){
+	/**
+	 * 初始化，包括设定文件路径，清除文件，构建对象
+	 */
+	private void init() {
 		tempFilePath = "files/test.txt";
 		if (inputFilePath == null)
 			inputFilePath = "files/input.txt";
 		if (outputFilePath == null)
 			outputFilePath = "files/output.txt";
 		
+		// 如果存在相同的文件，先进行删除
+		deleteFile(outputFilePath);
+		deleteFile(tempFilePath);
+		
+		//获取系统类型，设置换行控制字符
+		ConstantsUtil.setCR();
+
 		try {
 			ii = new FileInput(inputFilePath);
 			oi = new FileOutput(tempFilePath);
@@ -56,17 +81,21 @@ public class Controller {
 		pi = new StringParser();
 		si = new Shift();
 	}
-	
-	public void execute(){
+
+	/**
+	 * 主执行函数
+	 */
+	public void execute() {
 		String temp = ii.getLine();
-		
-		//if temp is not equals to ""
-		while(!temp.equals("")){
-			oi.wirteDataToFile(si.shiftParsedStringFromRightToLeft(pi.parseString(temp)));
+
+		// if temp is not equals to ""
+		while (!temp.equals("")) {
+			oi.wirteDataToFile(si.shiftParsedStringFromRightToLeft(pi
+					.parseString(temp)));
 			temp = ii.getLine();
 		}
-		
-		try {		
+
+		try {
 			ii = new FileInput(tempFilePath);
 			oi = new FileOutput(outputFilePath);
 		} catch (IOException e) {
@@ -76,10 +105,15 @@ public class Controller {
 		soi = new AlphaSort(ii.getWholeFile());
 		oi.wirteDataToFile(soi.Sort());
 	}
+
 	
+	/**
+	 * 程序入口
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+
 		// 未完成：添加对参数的支持
 		Controller controller = new Controller();
 		controller.execute();
