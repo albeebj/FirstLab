@@ -16,6 +16,7 @@ import com.parnas.kwic.data.settler.StringParser;
 public class Controller {
 	private String inputFilePath;
 	private String outputFilePath;
+	private String tempFilePath;
 	
 	private InputInterface ii;
 	private ParserInterface pi;
@@ -39,20 +40,21 @@ public class Controller {
 	}
 	
 	private void init(){
+		tempFilePath = "files/test.txt";
 		if (inputFilePath == null)
 			inputFilePath = "files/input.txt";
 		if (outputFilePath == null)
-			outputFilePath = "files/test.txt";
+			outputFilePath = "files/output.txt";
 		
 		try {
 			ii = new FileInput(inputFilePath);
+			oi = new FileOutput(tempFilePath);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		pi = new StringParser();
 		si = new Shift();
-		oi = new FileOutput();
 	}
 	
 	public void execute(){
@@ -65,16 +67,20 @@ public class Controller {
 		}
 		
 		try {		
-			ii = new FileInput("files/test.txt");
+			ii = new FileInput(tempFilePath);
+			oi = new FileOutput(outputFilePath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		soi = new AlphaSort(ii.getWholeFile());
+		oi.wirteDataToFile(soi.Sort());
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		// 未完成：添加对参数的支持
 		Controller controller = new Controller();
 		controller.execute();
 	}

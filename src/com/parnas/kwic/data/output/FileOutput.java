@@ -8,7 +8,7 @@ import com.parnas.kwic.data.interfaces.OutputInterface;
 public class FileOutput implements OutputInterface{
 
 	private FileWriter writer;
-	private String path = "files/test.txt";
+	private String path = "files/test.txt"; //Ä¬ÈÏµÄÂ·¾¶
 
 	public FileOutput(String path){
 		this.path = path;
