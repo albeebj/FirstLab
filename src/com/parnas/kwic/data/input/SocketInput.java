@@ -7,14 +7,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.parnas.kwic.constants.ConstantsUtil;
 import com.parnas.kwic.data.interfaces.InputInterface;
 
 public class SocketInput implements InputInterface{
 	private ServerSocket serverSocket;
 	private Socket socket;
 	private int port;
-	private BufferedReader br;
+	private BufferedReader is;
 	private String temp;
 	
 	public SocketInput(int p) {
@@ -22,7 +21,7 @@ public class SocketInput implements InputInterface{
 		try {
 			serverSocket = new ServerSocket(port);
 			socket = serverSocket.accept();
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,23 +32,31 @@ public class SocketInput implements InputInterface{
 	public String getLine() {
 		// TODO Auto-generated method stub
 		try {
-			temp = br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (temp != null) 
-			return temp;
-		else {
-			try {
-				socket.close();
-				serverSocket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			temp = is.readLine();
+
+			if (temp != null){ 
+				if(temp.equals("bye")){
+					try {
+						socket.close();
+						serverSocket.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return "";
+				}
+				else{
+					if(!temp.equals(""))
+						return temp;
+					else
+						return "nullString";
+				}
 			}
-			return "";
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		return ""; 
 			
 	}
 	

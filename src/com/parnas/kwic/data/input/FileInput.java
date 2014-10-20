@@ -11,19 +11,11 @@ import com.parnas.kwic.data.interfaces.InputInterface;
 
 public class FileInput implements InputInterface{
 	
-	private String path;
+	private File file;
 	private BufferedReader br;
-	
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
 
 	public FileInput(String path) throws IOException{
-		File file=new File(path);
+		file=new File(path);
         if(!file.exists()||file.isDirectory())
             throw new FileNotFoundException();
         
@@ -57,7 +49,7 @@ public class FileInput implements InputInterface{
 			e.printStackTrace();
 			return "Faild";
 		}
-		return "";
+		return "nullString";
 	}
 
 	/**

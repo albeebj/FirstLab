@@ -8,5 +8,5 @@ package com.parnas.kwic.data.interfaces;
  *
  */
 public interface OutputInterface {
-	public void wirteDataToFile(String content);
+	public void wirteDataToFile(String content, boolean isFinished);
 }

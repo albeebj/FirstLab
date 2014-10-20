@@ -18,8 +18,9 @@ public class ConstantsUtil {
 			CR = "\n";
 		} else if (os.startsWith("mac") || os.startsWith("Mac")) {
 			CR = "\r";
+		}else{
+			CR = "\r\n";
 		}
-		CR = "\r\n";
 	}
 
 	public static String getCR() {
